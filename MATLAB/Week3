@@ -83,15 +83,33 @@ value = polyval(num, x) / polyval(den, x)
 
 7
 % (a)
-bridge(1) = struct('location','Smith St.','load',80,'yearBuilt',1928,'yearMaint',2025);
-bridge(2) = struct('location','Hope Ave.','load',90,'yearBuilt',1950,'yearMaint',2027);
-bridge(3) = struct('location','Clark St.','load',85,'yearBuilt',1933,'yearMaint',2024);
-bridge(4) = struct('location','North Rd.','load',100,'yearBuilt',1960,'yearMaint',2023);
+bridge(1).location = 'Smith St.';
+bridge(1).maxLoad = 80;
+bridge(1).yearBuilt = 1928;
+bridge(1).maintenanceYear = 2025;
+
+bridge(2).location = 'Hope Ave.';
+bridge(2).maxLoad = 90;
+bridge(2).yearBuilt = 1950;
+bridge(2).maintenanceYear = 2027;
+
+bridge(3).location = 'Clark St.';
+bridge(3).maxLoad = 85;
+bridge(3).yearBuilt = 1933;
+bridge(3).maintenanceYear = 2024;
+
+bridge(4).location = 'North Rd.';
+bridge(4).maxLoad = 100;
+bridge(4).yearBuilt = 1960;
+bridge(4).maintenanceYear = 2023;
 
 % (b)
-bridge(3).yearMaint = 2026;
+bridge(3).maintenanceYear = 2026;
 
 % (c)
-bridge(5) = struct('location','Shore Rd.','load',85,'yearBuilt',1997,'yearMaint',2022);
+bridge(5).location = 'Shore Rd.';
+bridge(5).maxLoad = 85;
+bridge(5).yearBuilt = 1997;
+bridge(5).maintenanceYear = 2022;
 
-
+bridge
