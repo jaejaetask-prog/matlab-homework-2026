@@ -1,0 +1,30 @@
+%%1번
+clear;clc
+f = @(x) 0.3*x - sin(2*x);
+
+%근
+r1 = fzero(f, 0);
+r2 = fzero(f, 1.5); 
+
+%최소값
+fp = @(x) 0.3 - 2*cos(2*x);
+xmin = fzero(fp, 1);
+fmin = f(xmin);
+
+fprintf('근:x1 = %.6f, x2 = %.6f\n',r1, r2);
+
+fprintf('\n최솟값:fmin = %.6f\n',fmin);
+
+x = linspace(0,4,1000);
+y = 0.3*x - sin(2*x);
+
+figure(1)
+plot(x,y,'b','LineWidth',2)
+grid on
+hold on
+
+plot(0,0,'ro')
+plot(1.43,0,'ro')
+plot(0.71,-0.78,'ko','MarkerFaceColor','k')
+
+legend('f(x)','roots','minimum')
