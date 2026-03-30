@@ -1,0 +1,16 @@
+%%4번
+clear;clc
+
+f = @(x) 10*exp(-2*x);
+x = linspace(0, 2, 1000);
+
+y = f(x);
+
+figure(3)
+plot(x, y, 'b', 'LineWidth', 2)
+grid on
+hold on
+
+xlabel('x')
+ylabel('f(x)')
+title('f(x) = 10e^{-2x}')
