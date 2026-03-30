@@ -1,0 +1,21 @@
+%%5번
+clear;clc
+
+
+f = @(x) 30*x.^2 - 300*x + 4;
+
+%%%a
+x = linspace(0, 10, 1000);  
+y = f(x);                    
+figure(4)
+plot(x, y, 'b', 'LineWidth', 2)
+grid on
+hold on
+xlabel('x')
+ylabel('f(x)')
+title('f(x) = 30x^2 - 300x + 4')
+
+%%%b
+x_min = fminbnd(f, 0, 10);  % 최소값 위치
+
+fprintf('최소값 위치 x = %.4f\n', x_min);
