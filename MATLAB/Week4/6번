@@ -1,0 +1,19 @@
+%%6번
+clear;clc 
+
+f = @(x) x.^2;        
+g = @(y) 3*cos(y);    
+h = @(z) 6*exp(z);    
+
+F = @(x) h(g(f(x)));
+
+x = linspace(0, 4, 1000);
+y = F(x);
+
+figure(5)
+plot(x, y, 'b', 'LineWidth', 2)
+grid on
+hold on
+xlabel('x')
+ylabel('F(x)')
+title('F(x) = 6 e^{3 cos(x^2)}')
