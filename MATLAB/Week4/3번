@@ -1,0 +1,50 @@
+%%3번
+clear;clc
+
+%%%(a)
+fprintf('A(r) = pi.*r.*sqrt(r.^2+((3.*V)./(pi.*r.^2)).^2\n');
+
+%%%(b)
+% 함수 pyj_24010578_func_3b.m 파일에 정의
+
+%%%(c)
+global V
+V = 10;   % in^3
+
+% 최소화
+r_opt = fminbnd(@pyj_24010578_func_3b, 0.1, 5);
+
+% 대응하는 h
+h_opt = 3*V/(pi*r_opt^2);
+
+% 최소 면적
+A_min = pyj_24010578_func_3b(r_opt);
+
+fprintf('최적 r = %.4f\n', r_opt);
+fprintf('최적 h = %.4f\n', h_opt);
+fprintf('최소 면적 A = %.4f\n', A_min);
+
+r = linspace(0.5,3,1000);
+A_vals = arrayfun(@pyj_24010578_func_3b, r);
+
+figure(2)
+plot(r, A_vals,'b','LineWidth',2)
+grid on
+hold on
+
+plot(r_opt, A_min, 'ro','MarkerFaceColor','r')
+
+
+title('Surface Area vs Radius for Given Volume')
+xlabel('Radius r [in]')
+ylabel('Surface Area A [in^2]')
+legend('Surface Area','Minimum')
+
+A_limit = 1.1 * A_min;
+
+idx = find(A_vals <= A_limit);
+
+r_min = r(min(idx));
+r_max = r(max(idx));
+
+fprintf('허용 r 범위: %.4f ~ %.4f\n', r_min, r_max);
