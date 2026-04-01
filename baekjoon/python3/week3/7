@@ -1,0 +1,29 @@
+d1, d2, d3 = map(int,input().split());
+s= 0;
+if d1 == d2:
+    s = 12;
+    if d2 == d3:
+        s = 123;
+elif d2 == d3:
+    s = 23;
+    if d1 == d2:
+        s = 123;
+elif d1 == d3:
+    s = 13;
+    if d1 == d2:
+        s = 123;
+
+maxi = d1
+if s == 123:
+    print(10000+d1*1000)
+elif s == 12 or s == 13:
+    print(1000+d1*100)
+elif s == 23:
+    print(1000+d2*100)
+else:
+    if maxi < d2:
+        maxi = d2;
+    if maxi < d3:
+        maxi = d3;
+
+    print(maxi*100)
