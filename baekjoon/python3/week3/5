@@ -1,0 +1,6 @@
+H,M = map(int, input().split());
+T = H*60+M;
+FT=T-45;
+FH = (FT//60)%24;
+FM = FT%60;
+print(FH, FM)
