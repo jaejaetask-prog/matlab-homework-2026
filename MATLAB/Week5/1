@@ -1,0 +1,30 @@
+clear;clc
+
+x = [-2 -1 0 1 2];
+
+%1
+s = squareVec(x);
+disp(s)
+
+function s = squareVec(x)
+s = x.^2; 
+end
+
+%2
+m = meanVec(x);
+disp(m)
+
+function m = meanVec(x)
+m = mean(x);
+end
+
+%3
+T = mixedTransform(x);
+disp(T)
+
+function T = mixedTransform(x)
+T = zeros(size(x));     
+T(x < 0) = abs(x(x < 0));
+T(x == 0) = x(x == 0);
+T(x > 0) = 2*x(x > 0) + 1;
+end
