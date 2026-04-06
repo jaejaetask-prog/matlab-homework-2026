@@ -1,0 +1,25 @@
+clear;clc
+
+%1
+name = input('이름을 입력하세요: ','s');
+
+%2
+score = input('점수를 벡터 형태로 입력하세요: ');
+
+%3
+average = mean(score);
+
+fprintf('이름: %s\n', name);
+fprintf('점수: %d %d %d\n', score);
+fprintf('평균: %.2f\n', average);
+
+%4
+if average >= 90
+    disp('Excellent')
+elseif average >= 80
+    disp('Good')
+elseif average >= 70
+    disp('Fair')
+else
+    disp('Needs Improvement')
+end
