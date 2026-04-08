@@ -1,0 +1,10 @@
+K = []
+
+for i in range(9):
+    K.append(int(input()))
+
+maxi = max(K)
+index = K.index(maxi)+1
+
+print(maxi)
+print(index)
