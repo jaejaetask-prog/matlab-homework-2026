@@ -1,0 +1,16 @@
+clear;clc
+
+m = input('1<=m<=4, m = ')
+
+switch m
+    case 1
+        disp('January')
+    case 2
+        disp('February')
+    case 3
+        disp('March')
+    case 4
+        disp('April')
+    otherwise
+        disp('invalid month')
+end
