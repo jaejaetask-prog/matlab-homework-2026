@@ -1,0 +1,25 @@
+clear;clc
+
+price = [19 18 22 21 25 19 17 21 27 29];
+J = 1000;
+S = 0;
+G = 0;
+before = 1000*price(1);
+
+for i = 1 : length(price)
+    if price(i) < 20
+        J = J + 100;
+        S = S + 100*price(i);
+    elseif price(i) > 25
+        J = J - 100;
+        G = G + 100*price(i);
+    end
+end
+
+after = J*price(10) + G - S;
+final = after - before;
+
+fprintf('a(주식을 사는데 소비한 금액) = $%d\n',S)
+fprintf('b(주식을 팔아서 얻어진 금액) = $%d\n',G)
+fprintf('c(10일째가 지난 후에 보유하고 있는 주식의 수) = %d주\n',J)
+fprintf('d(포트폴리오에서 총 가치의 증가분) = $%d\n',final)
