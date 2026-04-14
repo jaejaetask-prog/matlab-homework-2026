@@ -1,0 +1,11 @@
+clear;clc
+
+x = input('x = ')
+
+if x > 0
+    y = x^2;
+else 
+    y = 0;
+end
+
+fprintf('y = %g',y)
