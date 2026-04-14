@@ -1,0 +1,27 @@
+clear;clc
+
+t = upper(input('type(S or P) = ','s'))
+n = input('number = ')
+R = zeros(1,n);
+
+for i = 1 : n
+    R(i) = input(sprintf('R(%d) = ',i));
+end
+
+Rf = 0;
+
+switch t
+    case 'S'
+        for i = 1 : n
+            Rf = Rf + R(i);
+        end
+        fprintf('R = %g',Rf)
+    case 'P'
+        for i = 1 : n
+            Rf = Rf + (1/R(i));
+        end
+        Rf = 1/Rf;
+        fprintf('R = %g',Rf)
+    otherwise
+        fprintf('error')
+end
