@@ -1,0 +1,26 @@
+clear;clc
+
+a = input('a = ')
+b = input('b = ')
+cmd = input('cmd = ','s')
+
+switch cmd
+    case 'add'
+        sol = a+b;
+        fprintf('solve = %g',sol)
+    case 'sub'
+        sol = a-b;
+        fprintf('solve = %g',sol)
+    case 'mul'
+        sol = a*b;
+        fprintf('solve = %g',sol)
+    case 'div'
+        if b == 0
+            fprintf('division by zero')
+        else
+            sol = a/b;
+            fprintf('solve = %g',sol)
+        end
+    otherwise
+        fprintf('invalid command')
+end
