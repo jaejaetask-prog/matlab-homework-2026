@@ -1,4 +1,4 @@
-s = [0]*10
+s = [0]*10;
 
 for i in range(10):
     k = int(input());
