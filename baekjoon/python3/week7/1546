@@ -1,0 +1,10 @@
+N = int(input());
+S = list(map(int,input().split()));
+F = []
+
+for i in range(N):
+    F.append(S[i]/max(S)*100)
+
+A = sum(F)/N
+
+print(A)
