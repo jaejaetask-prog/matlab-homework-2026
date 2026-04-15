@@ -1,0 +1,13 @@
+s = [0]*10
+
+for i in range(10):
+    k = int(input());
+    s[i] = k%42;
+
+num = 1;
+
+for j in range(9):
+    if s[j] != s[j+1]:
+        num +=1;
+
+print(num)
