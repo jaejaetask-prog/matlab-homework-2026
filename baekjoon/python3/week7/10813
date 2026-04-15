@@ -1,0 +1,11 @@
+N, M = map(int,input().split());
+
+B = list(range(1, N+1));
+
+for k in range(M):
+    i,j = map(int, input().split());
+    d = B[i-1];
+    B[i-1] = B[j-1];
+    B[j-1] = d;
+
+print(*B)
