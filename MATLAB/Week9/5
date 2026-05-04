@@ -1,0 +1,10 @@
+clear;clc
+
+x = 0:0.1:10;
+y1 = x.^2;
+y2 = exp(0.5.*x);
+
+figure(5);
+plotyy(x,y1,x,y2);
+title('y1 = x^2 vs y2 = exp(0.5*x)');
+xlabel('x');
