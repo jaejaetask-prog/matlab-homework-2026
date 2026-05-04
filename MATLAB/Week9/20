@@ -1,0 +1,38 @@
+clear;clc
+
+X = [3 7 2 5; 5 9 4 6; 8 12 7 10; 10 15 9 13; 14 18 12 16];
+
+%%(a)
+disp('(a)');
+Xmean = mean(X);
+disp('각 열의 평균 = ');
+disp(Xmean);
+
+%%(b)
+disp('(b)');
+Xc = X - mean(X);
+disp('Centered matrix Xc = ');
+disp(Xc);
+
+%%(c)
+disp('(c)');
+S = Xc' * Xc;
+disp('S = ');
+disp(S);
+
+%%(d)
+disp('(d)');
+fprintf("S의 원소 의미:\n\n");
+
+fprintf("1) 대각원소 S(i,i):\n");
+fprintf("각 변수의 분산에 비례하는 값 (sum of squares)\n");
+fprintf("-> 해당 변수의 데이터 퍼짐 정도를 나타냄\n\n");
+
+fprintf("2) 비대각원소 S(i,j):\n");
+fprintf("두 변수 i, j 간의 공분산 성분\n");
+fprintf("-> 양수: 함께 증가 (양의 상관)\n");
+fprintf("-> 음수: 반대로 변화 (음의 상관)\n");
+fprintf("-> 0에 가까움: 상관관계 거의 없음\n\n");
+
+fprintf("결론:\n");
+fprintf("대각원소 = 분산(변동성), 비대각원소 = 공분산(변수 간 관계)\n");
