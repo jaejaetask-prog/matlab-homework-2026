@@ -1,0 +1,35 @@
+clear;clc
+
+n = 1:1:30;
+T1 = n;
+T2 = n.*log(n);
+T3 = n.^2;
+T4 = 2.^n;
+figure(12);
+
+%(a)
+subplot(1,2,1);
+plot(n,T1);
+hold on;
+plot(n,T2);
+hold on;
+plot(n,T3);
+hold on;
+plot(n,T4);
+hold off;
+title('(a)');
+
+%(b)
+subplot(1,2,2);
+semilogy(n,T1);
+hold on;
+semilogy(n,T2);
+hold on;
+semilogy(n,T3);
+hold on;
+semilogy(n,T4);
+hold off;
+title('(b)');
+
+%(c)
+fprintf("로그 스케일 그래프(semilogy)가 성장률 비교에 더 적절하다.\nplot의 경우 그래프들의 차이를 시각적으로 구분하기 어렵다.\n반면, semilogy는 다항식과 지수식의 차이를 명확하게 분리 가능하여 성장률 비교가 비료적 직관적이다.");
