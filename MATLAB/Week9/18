@@ -1,0 +1,49 @@
+clear;clc
+
+A = [4 -1 2; 1 3 -1; 2 -2 5];
+b = [7;4;10];
+
+%% (a)
+
+disp('(a)');
+A2 = A^2;
+A_dot2 = A.^2;
+
+disp('A^2 = ');
+disp(A2);
+
+disp('A.^2 = ');
+disp(A_dot2);
+
+disp("A^2 = A*A : 행렬곱");
+disp("A.^2 = (Aij)^2 : 원소별 제곱\n\n");
+
+%% (b)
+d = det(A);
+disp('(b)');
+fprintf("det(A) = %.2f\n", d);
+if d ~= 0
+    fprintf("A는 invertible (역행렬 존재)\n\n");
+else
+    fprintf("A는 non-invertible (역행렬 없음)\n\n");
+end
+
+%% (c)
+x1 = inv(A)*b;
+x2 = A\b;
+
+disp('(c)');
+disp('inv(A)*b = ');
+disp(x1);
+
+disp('A\\b = ');
+disp(x2);
+
+disp("두 결과는 동일하다.");
+disp("A\\b는 LU 분해를 사용하여 더 빠르고 수치적으로 안정적이다.\n\n");
+
+%% (d)
+disp('(d)')
+x = A\b;
+disp('해 x = ');
+disp(x);
