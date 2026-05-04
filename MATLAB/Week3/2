@@ -1,0 +1,18 @@
+clear;clc
+v0 = 50;
+A = 50;
+g = 9.81;
+
+thit = 2*v0*sind(A)/g;
+ymax = (v0^2 * sind(A)^2) / (2*g);
+fprintf('충돌시간 thit = %.4f s\n', thit);
+fprintf('최고높이 ymax = %.4f m\n', ymax);
+t = linspace(0, thit, 200);
+x = (v0*cosd(A)).*t;
+y = (v0*sind(A)).*t - 0.5*g*t.^2;
+figure;
+plot(x, y, 'LineWidth', 2);
+grid on;
+xlabel('x (m)');
+ylabel('y (m)');
+title('Projectile Trajectory: x vs y');
