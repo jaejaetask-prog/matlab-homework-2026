@@ -1,0 +1,17 @@
+clear;clc
+
+p = [300; 550; 400; 250; 500];
+
+Q = [5 4 6;
+     3 2 4;
+     6 5 3;
+     3 5 4;
+     2 4 3];
+
+C = p .* Q
+
+monthly_total = sum(C, 1)
+
+material_total = sum(C, 2)
+
+total_all = sum(C, 'all')
