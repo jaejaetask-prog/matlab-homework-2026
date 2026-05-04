@@ -1,0 +1,18 @@
+clear;clc
+
+t = 0:0.1:20;
+v = 5*exp(-0.2*t);
+figure(17);
+
+%(1)
+subplot(1,2,1);
+plot(t,v);
+title('(1)')
+
+%(2)
+subplot(1,2,2);
+semilogy(t,v);
+title('(2)')
+
+%(3)
+fprintf("일반 plot은 비선형 곡선으로 후반부 값이 작아져서 변화가 잘 안 보인다.\n단, 값의 크기는 직관적으로 보인다.\nsemilogy는 일정한 기울기를 갖는 직선으로 그려진다.\n따라서 감쇠율을 읽기에 유리하다.\n지수감소 특성 분석에는 semilogy가 유리하다.")
