@@ -1,0 +1,16 @@
+clear;clc
+
+x = -4:0.1:4;
+y = -4:0.1:4;
+[X,Y] = meshgrid(x,y);
+Z = X.^2 - Y.^2;
+
+figure(7);
+mesh(X,Y,Z);
+xlabel('X');
+ylabel('Y');
+zlabel('Z');
+title("mesh")
+%% 그래프 z=x2−y2z = x^2 - y^2z=x2−y2 는 한 방향으로는 위로 볼록하고, 다른 방향으로는 아래로 볼록한 형태를 가진다.
+%% 즉, xxx 방향 단면은 위로 열린 포물선이고, yyy 방향 단면은 아래로 열린 포물선이다.
+%% 따라서 이 그래프는 안장처럼 생긴 saddle surface이다.
