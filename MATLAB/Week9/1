@@ -1,0 +1,11 @@
+clear;clc
+
+x = 0:0.05:6*pi;
+y = sin(x) + 0.5*cos(3*x);
+figure(1);
+plot(x,y);
+xticks(0:pi:6*pi);
+xlabel('x values');
+ylabel('y values');
+title('Plot of y = sin(x) + 0.5*cos(3*x)');
+grid on;
