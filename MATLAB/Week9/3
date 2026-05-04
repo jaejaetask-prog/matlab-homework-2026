@@ -1,0 +1,19 @@
+clear;clc
+
+score = [72, 85, 91, 66, 78, 88, 95, 54, 60, 73, 82, 90, 69, 77, 84, 92, 58, 63, 79, 87];
+save('score.dat','score','-ascii');
+data = load('score.dat');
+figure(3);
+subplot(1,2,1);
+histogram(data,5);
+title("구간 수: 5개");
+xlabel('score');
+ylabel('num');
+subplot(1,2,2);
+histogram(data,10);
+title("구간 수: 10개");
+xlabel('score');
+ylabel('num');
+%%구간 수가 5개인 히스토그램은 전체 분포를 비교적 크게 묶어서 보여주므로 점수 분포의 전체적인 경향을 파악하기 쉽다.
+%%구간 수가 10개인 히스토그램은 더 세분화되어 각 점수대의 빈도를 더 자세히 볼 수 있다.
+%%즉, 구간 수가 적으면 분포가 단순하게 보이고, 구간 수가 많으면 분포를 더 세밀하게 관찰할 수 있다.
