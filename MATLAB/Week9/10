@@ -1,0 +1,28 @@
+clear;clc
+
+x = -6:0.1:6;
+y = -6:0.1:6;
+[X, Y] = meshgrid(x, y);
+Z = cos(X).*sin(Y).*exp(-0.05.*(X.^2 + Y.^2));
+
+figure(10);
+
+%(a)
+subplot(1,2,1);
+mesh(X,Y,Z);
+title('(a)');
+
+%(b)
+subplot(1,2,2);
+contour(x,y,Z);
+title('(b)');
+
+%(c)
+[Zmax, idx] = max(Z(:));
+[row,col] = ind2sub(size(Z),idx);
+x_max = X(row,col);
+y_max = Y(row,col);
+
+fprintf('(c)');
+fprintf('최대값 z = %.4f\n', Zmax)
+fprintf('최대값 위치: x = %.2f, y = %.2f\n', x_max, y_max)
