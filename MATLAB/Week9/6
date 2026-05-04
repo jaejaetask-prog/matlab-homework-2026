@@ -1,0 +1,13 @@
+clear;clc
+
+t=0:0.02:12*pi;
+x = (1+0.03.*t).*cos(t);
+y = (1+0.03.*t).*sin(t);
+z = 0.2.*t;
+
+figure(6);
+plot3(x,y,z);
+title('3D Parametric Curve');
+xlabel('x(t)');
+ylabel('y(t)');
+zlabel('z(t)');
