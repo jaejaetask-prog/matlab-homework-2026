@@ -1,0 +1,20 @@
+clear;clc
+
+x = -2.*pi:0.1:2.*pi;
+y = -2.*pi:0.1:2.*pi;
+[X,Y] = meshgrid(x,y);
+Z = sin(X).*cos(Y);
+
+figure(8);
+subplot(1,2,1);
+mesh(X,Y,Z);
+title("mesh");
+xlabel('X');
+ylabel('Y');
+zlabel('Z');
+subplot(1,2,2);
+contour(x,y,Z);
+title("contour");
+xlabel('x');
+ylabel('y');
+zlabel('Z');
