@@ -1,0 +1,18 @@
+clear;clc
+
+p1 = [5 0 -3 7 10];    
+p2 = [4 -7 9 2];        
+
+result = conv(p1, p2)
+
+num = [5 -7 2 8];
+den = [6 3 -2];
+
+[q, r] = deconv(num, den)
+
+num = [36 -8 0 2];
+den = [36 -5 4 -3];
+
+x = 5;
+
+value = polyval(num, x) / polyval(den, x)
