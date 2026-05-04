@@ -1,0 +1,24 @@
+clear;clc
+
+t = [0 1 2 3 4 5 6];
+C = [12 8.9 6.6 4.9 3.6 2.7 2.0];
+
+figure(11)
+
+%(a)
+subplot(1,2,1);
+plot(t,C);
+title('(a)');
+
+%(b)
+subplot(1,2,2);
+semilogy(t,C);
+title('(b)');
+
+%(c)
+lnC = log(C);
+
+p = polyfit(t,lnC,1);
+k = -p(1);
+
+fprintf('k = %.4f\n', k);
