@@ -1,0 +1,19 @@
+clear;clc
+
+x =1:1:50;
+y = 3.^x;
+figure(2);
+subplot(1,2,1);
+plot(x,y);
+title("plot");
+xlabel('x values');
+ylabel('y values');
+subplot(1,2,2);
+semilogy(x,y);
+title("semilogy")
+xlabel('x values');
+ylabel('y values');
+%% plot의 경우 벡터x와 벡터y를 선형그래프로 그린다. 데이터가 가파르게 증가하여 일반 스케일에서는 작은 값이 잘 보이지 않는다. 
+%% 반면, semilogy는 x축을 로그눈금으로, y축은 선형눈금으로 하여 벡터x와 y를 그린다. 
+%% 로그스케일에서는 지수적 관계를 직선으로 표현하여 증가패턴을 쉽게 파악할 수 있다. 
+%% 따라서 semilogy가 상대적변화(비율)을 파악하는데 유리하다.
