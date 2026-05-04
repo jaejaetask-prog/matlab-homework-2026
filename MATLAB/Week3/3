@@ -1,0 +1,13 @@
+clear;clc
+x1 = -2:0.01:-0.01;
+x2 = 0.01:0.01:16;
+x = [x1 x2];
+
+f = (4*cos(x))./x + exp(-0.75*x);
+
+figure;
+plot(x, f, 'LineWidth', 2);
+grid on;
+xlabel('x');
+ylabel('f(x)');
+title('f(x) = 4cos(x)/x + e^{-0.75x}');
