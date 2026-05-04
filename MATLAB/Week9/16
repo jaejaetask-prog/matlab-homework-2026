@@ -1,0 +1,21 @@
+clear;clc
+
+t = 0:0.1:24;
+T = 15+10*sin(pi*t/12);
+figure(16);
+plot(t,T);
+hold on;
+t_max = 6;
+T_max = 25;
+t_min = 18;
+T_min = 5;
+
+plot(t_max, T_max, 'ro', 'MarkerSize',8, 'LineWidth',2);
+plot(t_min, T_min, 'go', 'MarkerSize',8, 'LineWidth',2);
+text(t_max, T_max, '  Max (6h, 25°C)');
+text(t_min, T_min, '  Min (18h, 5°C)');
+
+xlabel('Time (hours)');
+ylabel('Temperature (°C)');
+legend('T(t)', 'Max', 'Min');
+title('Temperature Variation');
