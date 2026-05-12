@@ -1,0 +1,26 @@
+clear; clc; close all
+
+X = [2  5  1;
+     4  8  3;
+     6 11  7;
+     9 15 10;
+     13 20 14];
+
+% (a)
+m = mean(X)
+
+% (b)
+Xc = X - m
+
+% (c)
+S = Xc' * Xc
+
+% (d)
+[V,D] = eig(S);
+lambda = diag(D)
+
+% (e)
+[lambda_max, index] = max(lambda)
+
+% (f)
+v = V(:, index)
