@@ -1,0 +1,33 @@
+clear; clc; close all
+
+epoch = [1, 2, 5, 10, 20, 50, 100, 200];
+loss = [3.1, 2.4, 1.7, 1.2, 0.83, 0.36, 0.14, 0.06];
+
+% (a)
+figure(1)
+plot(epoch, loss, 'o-')
+grid on
+xlabel('epoch')
+ylabel('loss')
+title('Loss vs Epoch')
+
+% (b)
+figure(2)
+semilogy(epoch, loss, 'o-')
+grid on
+xlabel('epoch')
+ylabel('loss')
+title('Log Scale Loss vs Epoch')
+
+% (c)
+r = loss(2:end) ./ loss(1:end-1)
+
+% (d)
+mean_r = mean(r)
+
+% (e)
+if mean_r < 1
+    disp('The average ratio is less than 1, so the loss generally decreases.')
+else
+    disp('The average ratio is not less than 1, so the loss does not generally decrease.')
+end
