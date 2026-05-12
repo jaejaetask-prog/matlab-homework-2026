@@ -1,0 +1,40 @@
+clear; clc; close all
+
+X = [1  3  0;
+     2  5  1;
+     4  8  3;
+     7 12  5;
+     11 17 9];
+
+% (a)
+x1 = X(:,1);
+x2 = X(:,2);
+x3 = X(:,3);
+
+% (b)
+theta12 = acosd(dot(x1,x2) / (norm(x1)*norm(x2)));
+
+% (c)
+theta13 = acosd(dot(x1,x3) / (norm(x1)*norm(x3)));
+theta23 = acosd(dot(x2,x3) / (norm(x2)*norm(x3)));
+
+% (d)
+theta = [theta12, theta13, theta23];
+
+disp('Angles [theta12 theta13 theta23] = ')
+disp(theta)
+
+% (e)
+[minTheta, idx] = min(theta);
+
+pairs = [1 2;
+         1 3;
+         2 3];
+
+bestPair = pairs(idx,:);
+
+disp('Minimum angle = ')
+disp(minTheta)
+
+disp('Most similar sensor pair = ')
+disp(bestPair)
