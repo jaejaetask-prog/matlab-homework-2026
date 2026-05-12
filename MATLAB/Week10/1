@@ -1,0 +1,25 @@
+clear; clc; close all
+
+%a
+t = 0:0.01:30;
+f = exp(-0.12*t).*sin(5*t) + 0.3.*cos(2*t);
+plot(t,f);
+grid on
+
+%b
+hold on
+u = exp(-0.12*t)+0.3;
+l = - exp(-0.12*t)-0.3;
+
+plot(t,u);
+plot(t,l);
+
+%c
+index = find(f(2:end-1)>f(1:end-2) & f(2:end-1)>f(3:end))+1;
+
+%d
+plot(t(index),f(index),'o');
+
+%e
+T = table(t(index)',f(index)','VariableNames',{'t','f(t)'});
+disp(T)
