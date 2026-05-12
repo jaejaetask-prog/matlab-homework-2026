@@ -1,0 +1,41 @@
+clear; clc; close all
+
+t = 0:0.01:40;
+
+% (a)
+y = exp(-0.04*t) .* (sin(4*t) + 0.6*sin(9*t));
+
+figure(1)
+plot(t,y,'b-')
+grid on
+xlabel('t')
+ylabel('y(t)')
+title('Output Signal')
+hold on
+
+% (b)
+u = 1.6 * exp(-0.04*t);
+l = -1.6 * exp(-0.04*t);
+
+% (c)
+plot(t,u,'r--')
+plot(t,l,'r--')
+legend('y(t)','u(t)','l(t)')
+
+% (d)
+figure(2)
+semilogy(t,abs(y))
+grid on
+xlabel('t')
+ylabel('|y(t)|')
+title('Log Scale Plot of |y(t)|')
+
+% (e)
+u_0 = 1.6 * exp(-0.04*0);
+u_40 = 1.6 * exp(-0.04*40);
+
+disp('u(0) = ')
+disp(u_0)
+
+disp('u(40) = ')
+disp(u_40)
