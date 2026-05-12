@@ -1,0 +1,45 @@
+clear; clc; close all
+
+A = [7  2  1; 2  6 -2; 1 -2  5];
+
+% (a)
+[V,D] = eig(A);
+
+disp('Eigenvector matrix V = ')
+disp(V)
+
+disp('Eigenvalue matrix D = ')
+disp(D)
+
+% (b)
+lambda = diag(D);
+
+disp('Eigenvalues = ')
+disp(lambda)
+
+% (c)
+[lambda_max, index] = max(lambda);
+
+disp('lambda_max = ')
+disp(lambda_max)
+
+disp('index = ')
+disp(index)
+
+% (d)
+v = V(:, index);
+
+disp('Eigenvector for lambda_max = ')
+disp(v)
+
+% (e)
+v_unit = v / norm(v);
+
+disp('Unit eigenvector = ')
+disp(v_unit)
+
+% (f)
+check = A*v_unit - lambda_max*v_unit;
+
+disp('A*v - lambda_max*v = ')
+disp(check)
