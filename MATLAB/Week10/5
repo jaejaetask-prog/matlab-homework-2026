@@ -1,0 +1,28 @@
+clear; clc; close all
+
+% (a)
+A = [ 5  2 -1;
+     -2  6  3;
+      1 -1  7];
+
+b = [8;
+     5;
+     12];
+
+% (b)
+x1 = inv(A) * b
+
+% (c)
+x2 = A \ b
+
+% (d)
+diff = x1 - x2
+
+% (e)
+detA = det(A)
+
+if detA ~= 0
+    disp('det(A) is not zero, so the system has a unique solution.')
+else
+    disp('det(A) is zero, so the system may not have a unique solution.')
+end
