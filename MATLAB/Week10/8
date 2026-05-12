@@ -1,0 +1,48 @@
+clear; clc; close all
+
+% (a)
+t = 0:0.01:24;
+
+P = 50 + 18*sin(pi*t/12) + 6*cos(pi*t/4);
+
+figure(1)
+plot(t,P,'b-')
+grid on
+xlabel('t (hour)')
+ylabel('P(t)')
+title('Power Consumption')
+
+hold on
+
+% (b)
+Pmax = max(P);
+
+% (c)
+idx_max = find(P == Pmax);
+
+t_max = t(idx_max);
+
+disp('Maximum power consumption = ')
+disp(Pmax)
+
+disp('Time of maximum power consumption = ')
+disp(t_max)
+
+% (d)
+Pmin = min(P);
+
+idx_min = find(P == Pmin);
+
+t_min = t(idx_min);
+
+disp('Minimum power consumption = ')
+disp(Pmin)
+
+disp('Time of minimum power consumption = ')
+disp(t_min)
+
+% (e)
+plot(t_max, Pmax, 'ro', 'MarkerSize', 8)
+plot(t_min, Pmin, 'ks', 'MarkerSize', 8)
+
+legend('P(t)','Maximum','Minimum')
