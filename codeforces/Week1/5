@@ -1,0 +1,27 @@
+import sys
+
+input = sys.stdin.readline
+
+t = int(input())
+
+for _ in range(t):
+    n, k = map(int, input().split())
+    a = list(map(int, input().split()))
+    b = list(map(int, input().split()))
+
+    ops = []
+
+    # level k부터 1까지 차례대로 비운다
+    for level in range(k, 0, -1):
+        for i in range(n):
+            if b[i] == level:
+                # 이 과목을 k+1까지 계속 올림
+                while b[i] <= k:
+                    ops.append(i + 1)
+                    b[i] += 1
+
+    if len(ops) > 1000:
+        print(-1)
+    else:
+        print(len(ops))
+        print(*ops)
