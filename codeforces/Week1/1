@@ -1,0 +1,17 @@
+import sys
+
+input = sys.stdin.readline
+
+t = int(input())
+
+for _ in range(t):
+    a, b, n = map(int, input().split())
+
+    limit = a // b
+
+    if n <= limit:
+        print(1)
+    elif a == b:
+        print(1)
+    else:
+        print(2)
