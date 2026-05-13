@@ -1,0 +1,30 @@
+import sys
+
+input = sys.stdin.readline
+
+t = int(input())
+
+for _ in range(t):
+    r = input().strip()
+    n = len(r)
+
+    total_u = r.count('u')
+    keep = 0
+
+    prev_kept = False
+
+    for i in range(n):
+        if i == 0 or i == n - 1:
+            prev_kept = False
+            continue
+
+        if r[i] == 'u':
+            if not prev_kept:
+                keep += 1
+                prev_kept = True
+            else:
+                prev_kept = False
+        else:
+            prev_kept = False
+
+    print(total_u - keep)
