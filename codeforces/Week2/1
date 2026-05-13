@@ -1,0 +1,18 @@
+import sys
+from bisect import bisect_left, bisect_right
+
+input = sys.stdin.readline
+
+t = int(input())
+
+for _ in range(t):
+    n, a = map(int, input().split())
+    v = list(map(int, input().split()))
+
+    less = bisect_left(v, a)
+    greater = n - bisect_right(v, a)
+
+    if less > greater:
+        print(a - 1)
+    else:
+        print(a + 1)
