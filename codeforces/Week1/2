@@ -1,0 +1,18 @@
+import sys
+input = sys.stdin.readline
+
+t = int(input())
+
+for _ in range(t):
+    n, x, y = map(int, input().split())
+    s = input().strip()
+
+    x = abs(x)
+    y = abs(y)
+
+    c8 = s.count('8')
+
+    if max(x, y) <= n and x + y <= n + c8:
+        print("YES")
+    else:
+        print("NO")
