@@ -1,0 +1,38 @@
+clear; clc
+
+%(a)
+B = readtable('bank-full.csv');
+
+% 만약 열이 제대로 나뉘지 않으면 아래 코드 사용
+% B = readtable('bank-full.csv', 'Delimiter', ';');
+
+%(b)
+B.Properties.VariableNames
+
+%(c)
+age = B.age;
+balance = B.balance;
+loan = B.loan;
+y = B.y;
+
+%(d)
+index = age >= 40 & balance >= 2000 & string(loan) == "no";
+T1 = B(index, :);
+
+%(e)
+T2 = T1(:, {'age', 'balance', 'y'});
+
+%(f)
+T2.NewFlag = double(string(T2.y) == "yes");
+
+%(g)
+Subscribed = T2(T2.NewFlag == 1, :);
+
+%(h)
+balanceVec = Subscribed{:, 'balance'};
+
+%(i)
+avgBalance = mean(balanceVec);
+
+%(j)
+writetable(Subscribed, 'bank_selected.csv');
