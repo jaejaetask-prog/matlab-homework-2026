@@ -1,0 +1,15 @@
+%(a)
+Abalone;
+
+%(b)
+Abalone.ShellRatio = Abalone.ShellWeight ./ Abalone.WholeWeight;
+
+%(c)
+index2 = Abalone.ShellRatio >= 0.25 & Abalone.Rings >= 12;
+HardShell = Abalone(index2,:);
+
+%(d)
+HardShell(:,{'Sex','WholeWeight','ShellWeight','ShellRatio','Rings'})
+
+%(e)
+ratioData = HardShell{:, 'ShellRatio'};
