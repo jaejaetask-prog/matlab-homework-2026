@@ -1,0 +1,18 @@
+clear; clc
+
+%(a)
+P = readtable('penguins.csv');
+
+%(b)
+P.Properties.VariableNames
+
+%(c)
+index = P.body_mass_g >= 4500;
+HeavyPenguins = P(index, :);
+
+%(d)
+HeavyPenguins(:, {'species', 'island', 'body_mass_g', 'sex'})
+
+%(e)
+index2 = strcmp(P.species, 'Gentoo') & P.body_mass_g >= 5000;
+LargeGentoo = P(index2, :);
