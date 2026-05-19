@@ -1,0 +1,15 @@
+%(a)
+Fire = ForestFires;
+
+%(b)
+Fire.RiskIndex = Fire.temp .* Fire.wind ./ Fire.RH;
+
+%(c)
+index = Fire.RiskIndex >= 2 & Fire.area > 0;
+RiskFire = Fire(index, :);
+
+%(d)
+RiskFire(:, {'month', 'day', 'temp', 'RH', 'wind', 'area', 'RiskIndex'})
+
+%(e)
+writetable(RiskFire, 'forest_risk.csv');
