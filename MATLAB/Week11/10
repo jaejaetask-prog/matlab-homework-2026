@@ -1,0 +1,15 @@
+%(a)
+P;
+
+%(b)
+P.BillRatio = P.bill_length_mm ./ P.bill_depth_mm;
+
+%(c)
+index = P.BillRatio >= 2.8;
+LongBill = P(index, :);
+
+%(d)
+LongBill(:, {'species', 'bill_length_mm', 'bill_depth_mm', 'BillRatio'})
+
+%(e)
+billRatioData = LongBill{:, 'BillRatio'};
