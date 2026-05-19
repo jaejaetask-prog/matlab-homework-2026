@@ -1,0 +1,20 @@
+clear;clc
+
+%(a)
+url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data';
+
+%(b)
+Abalone = readtable(url, 'FileType', 'text', 'ReadVariableNames',false);
+
+%(c)
+Abalone.Properties.VariableNames = {'Sex','Length','Diameter','Height','WholeWeight','ShuckedWeight','VisceraWeight', 'ShellWeight','Rings'};
+
+%(d)
+Abalone(:, {'WholeWeight','ShellWeight','Rings'})
+
+%(e)
+index = strcmp(Abalone.Sex,'M') & Abalone.Rings >= 15;
+OldMale = Abalone(index,:);
+
+%(f)
+OldMale(:,{'Sex','Length','WholeWeight','Rings'})
