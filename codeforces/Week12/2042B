@@ -1,0 +1,25 @@
+import sys
+from collections import Counter
+ 
+input = sys.stdin.readline
+ 
+t = int(input())
+ 
+for _ in range(t):
+    n = int(input())
+    c = list(map(int, input().split()))
+ 
+    cnt = Counter(c)
+ 
+    single = 0
+    many = 0
+ 
+    for v in cnt.values():
+        if v == 1:
+            single += 1
+        else:
+            many += 1
+ 
+    ans = many + 2 * ((single + 1) // 2)
+ 
+    print(ans)
