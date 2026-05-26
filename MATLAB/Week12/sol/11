@@ -17,3 +17,6 @@ for i = 1:size(A_clean, 1)
 end
 %% (e) 정제 전후 비교 출력
 disp('Original matrix A:')
+disp(A)
+disp('Cleaned matrix A_clean:')
+disp(A_clean)
