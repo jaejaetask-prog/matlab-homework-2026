@@ -19,3 +19,10 @@ X = table2array(Robot);
 figure(3)
 plotmatrix(X)
 title('Scatter Plot Matrix of Robot Data')
+%% (d) 각 변수의 분산을 계산하여 행벡터 varVec에 저장
+varVec = var(X);
+%% (e) varVec에서 가장 큰 값을 갖는 위치 저장
+[~, idxMax] = max(varVec);
+%% (f) 가장 분산이 큰 변수의 이름 저장
+varNames = Robot.Properties.VariableNames;
+maxVarName = varNames{idxMax};
