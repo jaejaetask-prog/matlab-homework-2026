@@ -1,0 +1,51 @@
+clear; clc
+%% (a) x, y 범위 설정 및 meshgrid 생성
+x = -5:0.05:5;
+y = -5:0.05:5;
+[X, Y] = meshgrid(x, y);
+%% (b) 원소별 연산으로 Z 계산
+Z = exp(-0.08 * (X.^2 + Y.^2)) .* sin(3*X) .* cos(2*Y) ...
+    + 0.15 * sin(X .* Y);
+%% (c) surf를 이용한 3차원 곡면 그래프
+figure
+hSurf = surf(X, Y, Z);
+hold on
+%% (d) shading interp, colorbar 추가
+shading interp
+colorbar
+%% (i) z = 0 평면을 반투명 기준면으로 표시
+Z0 = zeros(size(Z));
+hPlane = surf(X, Y, Z0);
+hPlane.FaceAlpha = 0.25;
+hPlane.EdgeColor = 'none';
+%% (j) 곡면의 최대값과 최소값 계산
+[maxZ, idxMax] = max(Z(:));
+[minZ, idxMin] = min(Z(:));
+%% (k) 최대값과 최소값 위치의 (x, y, z) 좌표 찾기
+[rowMax, colMax] = ind2sub(size(Z), idxMax);
+[rowMin, colMin] = ind2sub(size(Z), idxMin);
+maxPoint = [X(rowMax, colMax), Y(rowMax, colMax), maxZ];
+minPoint = [X(rowMin, colMin), Y(rowMin, colMin), minZ];
+%% (l) 최대점과 최소점을 그래프 위에 marker로 표시
+hMax = plot3(maxPoint(1), maxPoint(2), maxPoint(3), ...
+'ro', 'MarkerSize', 10, 'MarkerFaceColor', 'r');
+hMin = plot3(minPoint(1), minPoint(2), minPoint(3), ...
+'bo', 'MarkerSize', 10, 'MarkerFaceColor', 'b');
+%% (e) 축 label 설정
+xlabel('x-axis')
+ylabel('y-axis')
+zlabel('z=f(x,y)')
+%% (f) 그래프 제목 설정
+title('Detailed Surface Plot of a Multivariable Function')
+%% (g) grid on 및 축 글자 크기 설정
+grid on
+ax = gca;
+ax.FontSize = 12;
+%% (h) 관찰 각도 지정
+view(45, 30)
+%% (l) legend 추가
+legend([hSurf, hPlane, hMax, hMin], ...
+       {'Surface', 'z=0 plane', 'Maximum point', 'Minimum point'}, ...
+'Location', 'best')
+%% (m) 최종 그래프를 PNG 파일로 저장
+saveas(gcf, 'complex_surface.png')
