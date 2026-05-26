@@ -1,0 +1,54 @@
+clear; clc
+%% (a) 난수 seed 고정
+rng(0)
+%% (b) t = 1, 2, ..., 120인 열벡터 생성
+t = (1:120)';
+%% (c) signal 생성
+signal = 30 + 4*sin(t/8) + randn(120, 1);
+%% (d) 15번째, 45번째, 90번째 값을 NaN으로 변경
+signal([15, 45, 90]) = NaN;
+%% (e) 이상치 삽입
+signal(30) = 80;
+signal(75) = -20;
+signal(110) = 95;
+%% (f) 결측치 위치와 결측치 개수 저장
+idxMissing = isnan(signal);
+numMissing = sum(idxMissing);
+%% (g) 결측치를 제외하고 계산한 평균으로 결측치 대체
+muSignal = mean(signal, 'omitnan');
+signalFilled = signal;
+signalFilled(idxMissing) = muSignal;
+%% (h) signalFilled의 평균과 표준편차를 이용하여 3sigma 기준 이상치 검출
+muFilled = mean(signalFilled);
+sigFilled = std(signalFilled);
+idxOutlier = abs(signalFilled - muFilled) > 3 * sigFilled;
+%% (i) signalFilled를 복사하여 signalClean 생성 후 이상치 위치를 NaN으로 변경
+signalClean = signalFilled;
+signalClean(idxOutlier) = NaN;
+%% (j) signalClean에서 NaN이 아닌 값만 추출
+validSignal = signalClean(~isnan(signalClean));
+%% (k) validSignal을 Min-Max 정규화
+minVal = min(validSignal);
+maxVal = max(validSignal);
+normSignal = (validSignal - minVal) ./ (maxVal - minVal);
+%% (l) normSignal의 평균과 분산 계산
+finalMean = mean(normSignal);
+finalVar = var(normSignal);
+%% (m) validSignal과 normSignal을 하나의 figure에서 위아래 두 개의 tile로 표시
+figure
+tiledlayout(2, 1)
+nexttile
+plot(validSignal, '-o', 'LineWidth', 1.2)
+grid on
+xlabel('Index')
+ylabel('Valid Signal')
+title('Valid Signal after Missing and Outlier Removal')
+nexttile
+plot(normSignal, '-s', 'LineWidth', 1.2)
+grid on
+xlabel('Index')
+ylabel('Normalized Signal')
+title('Min-Max Normalized Signal')
+nexttile(2)
+xlim([0 120])
+ylim([0.00 1.00])
