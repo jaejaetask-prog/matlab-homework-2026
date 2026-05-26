@@ -1,0 +1,33 @@
+clear; clc 
+%% (a) 원본 벡터 생성
+x = [21, 22, NaN, 23, 24, 120, 25, NaN, 26, 27];
+%% (b) 결측치 위치 저장
+idxmissing = isnan(x);
+%% (c) 결측치를 제외한 평균과 표준편차 계산
+mu0 = mean(x, 'omitnan');
+sig0 = std(x, 'omitnan');
+%% (d) 평균에서 3sigma 초과하여 벗어난 값을 이상치로 정의
+idxoutlier = abs(x - mu0) > 3 * sig0;
+%% (e) 원본 벡터 복사 후 결측치와 이상치를 NaN으로 변경
+xtemp = x;
+xtemp(idxmissing | idxoutlier) = NaN;
+%% (f) xtemp의 NaN 값을 xtemp의 평균값으로 대체
+mu_temp = mean(xtemp, 'omitnan');
+xclean = xtemp;
+xclean(isnan(xclean)) = mu_temp;
+%% (g) 최종 정제 벡터의 평균과 표준편차 계산
+muclean = mean(xclean);
+sigclean = std(xclean);
+%% (h) 원본 데이터와 정제 데이터 그래프
+figure
+idx = 1:length(x);
+plot(idx, x, 'o--', 'LineWidth', 1.5, 'MarkerSize', 8)
+hold on
+plot(idx, xclean, 's-', 'LineWidth', 1.5, 'MarkerSize', 8)
+grid on
+xlabel('Index')
+ylabel('Temperature')
+title('Original Data vs Cleaned Data')
+legend('Original x', 'Cleaned xclean', 'Location', 'best')
+xlim([1 length(x)])
+hold off
