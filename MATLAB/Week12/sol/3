@@ -1,0 +1,30 @@
+clear; clc 
+%% (a) Channel, Signal, Noise 변수 생성 후 table T 생성
+Channel = ["CH1"; "CH2"; "CH3"; "CH4"; "CH5"; "CH6"; "CH7"; "CH8"];
+Signal = [18.2; 
+          15.5; 
+          21.0; 
+          11.7; 
+          25.3; 
+          19.4; 
+          28.6; 
+          16.8];
+Noise = [2.1; 
+         3.4; 
+         2.8; 
+         4.2; 
+         3.0; 
+         5.1; 
+         2.9; 
+         3.7];
+T = table(Channel, Signal, Noise);
+%% (b) SignalToNoise 새 변수 추가
+T.SignalToNoise = T.Signal ./ T.Noise;
+%% (c) SignalToNoise의 평균값 저장
+meanSNR = mean(T.SignalToNoise);
+%% (d) SignalToNoise가 meanSNR보다 큰 행만 추출
+T_high = T(T.SignalToNoise > meanSNR, :);
+%% (e) T_high에서 SignalToNoise 값만 중괄호 {}로 숫자 벡터 추출
+snrVec = T_high{:, 'SignalToNoise'};
+%% (f) snrVec의 분산 저장
+varSNR = var(snrVec);
