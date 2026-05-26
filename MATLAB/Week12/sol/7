@@ -1,0 +1,34 @@
+clear; clc 
+%% (a) 데이터 table Battery 생성
+Material = ["A"; "A"; "A"; "A"; ...
+            "B"; "B"; "B"; "B"; ...
+            "C"; "C"; "C"; "C"];
+EnergyDensity = [245; 252; 238; 260; ...
+                 310; 295; 305; 318; ...
+                 180; 190; 176; 185];
+Battery = table(Material, EnergyDensity);
+%% (b) 소재 A, B, C에 해당하는 논리 인덱스 생성
+idxA = strcmp(Battery.Material, "A");
+idxB = strcmp(Battery.Material, "B");
+idxC = strcmp(Battery.Material, "C");
+% 문자열 비교로 해도 됨
+% idxA = Battery.Material == "A";
+% idxB = Battery.Material == "B";
+% idxC = Battery.Material == "C";
+%% (c) logical indexing으로 평균 에너지 밀도 계산
+meanA = mean(Battery.EnergyDensity(idxA));
+meanB = mean(Battery.EnergyDensity(idxB));
+meanC = mean(Battery.EnergyDensity(idxC));
+%% (d) 소재별 표준편차 계산
+stdA = std(Battery.EnergyDensity(idxA));
+stdB = std(Battery.EnergyDensity(idxB));
+stdC = std(Battery.EnergyDensity(idxC));
+%% (e) 소재명, 평균, 표준편차를 포함하는 요약 table Summary 생성
+MaterialName = ["A"; "B"; "C"];
+MeanEnergyDensity = [meanA; meanB; meanC];
+StdEnergyDensity = [stdA; stdB; stdC];
+Summary = table(MaterialName, MeanEnergyDensity, StdEnergyDensity);
+Summary
+%% (f) groupsummary로 평균과 표준편차 계산한 table G 생성
+G = groupsummary(Battery, "Material", {"mean", "std"}, "EnergyDensity");
+G
