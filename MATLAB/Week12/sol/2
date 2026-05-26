@@ -1,0 +1,19 @@
+clear; clc 
+%% (a) 숫자 행렬 A 생성
+A = [10 200 0.5;
+     12 180 0.7;
+     15 220 0.6;
+     20 250 0.9;
+     25 300 1.1];
+%% (b) 각 열의 최솟값, 최댓값 저장
+colMin = min(A);
+colMax = max(A);
+%% (c) 각 열을 독립적으로 Min-Max 정규화
+A_norm = (A - colMin) ./ (colMax - colMin);
+%% (d) 정규화된 행렬 A_norm에서 각 행의 평균 계산
+rowMean = mean(A_norm, 2);
+%% (e) rowMean이 가장 큰 행 번호 저장
+[~, idx] = max(rowMean);
+%% (f) idx에 해당하는 원본 행과 정규화된 행 저장
+bestOriginal = A(idx, :);
+bestNormalized = A_norm(idx, :);
