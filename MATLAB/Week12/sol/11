@@ -1,0 +1,19 @@
+clear; clc
+%% (a) 행렬 A 생성
+A = [ 3  -1   5  -2   4;
+     -4   6  -3   2   1;
+      7  -5   8  -1   0;
+     -2   4  -6   9   3;
+      5  -3   2  -4   6];
+%% (b) 원본 행렬 A를 복사하여 A_clean 생성
+A_clean = A;
+%% (c), (d) 중첩 for문으로 모든 원소 검사 후 음수이면 0으로 변경
+for i = 1:size(A_clean, 1)
+    for j = 1:size(A_clean, 2)
+      if A_clean(i, j) < 0
+            A_clean(i, j) = 0;
+        end
+    end
+end
+%% (e) 정제 전후 비교 출력
+disp('Original matrix A:')
