@@ -1,0 +1,19 @@
+clear; clc 
+%% (a) 평균 50, 표준편차 5를 갖는 길이 100의 열벡터 y 생성
+rng(0)   % 난수 seed 고정
+y = 50 + 5 * randn(100, 1);
+%% (b) 지정된 위치에 이상치 삽입
+y([10, 25, 40, 70, 90]) = [90, 95, 5, 100, 0];
+%% (c) quantile을 사용하여 Q1, Q3 계산
+Q1 = quantile(y, 0.25);
+Q3 = quantile(y, 0.75);
+%% (d) IQR 계산
+IQRval = Q3 - Q1;
+%% (e) IQR 기준 하한값 lower, 상한값 upper 계산
+lower = Q1 - 1.5 * IQRval;
+upper = Q3 + 1.5 * IQRval;
+%% (f) IQR 기준 이상치 위치를 논리벡터로 저장
+idxoutlier = (y < lower) | (y > upper);
+%% (g) 이상치를 제외한 데이터 저장 및 중앙값 계산
+yclean = y(~idxoutlier);
+medclean = median(yclean);
