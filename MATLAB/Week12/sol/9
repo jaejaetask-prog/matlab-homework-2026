@@ -1,0 +1,23 @@
+clear; clc
+%% (a) train.csv를 table T로 불러오기
+T = readtable('train.csv');
+%% (b) Age의 결측치 개수 저장
+numMissingAge = sum(isnan(T.Age));
+%% (c) Age의 결측치를 Age 평균값으로 대체
+muAge = mean(T.Age, 'omitnan');
+T.Age(isnan(T.Age)) = muAge;
+%% (d) Fare의 평균과 표준편차 계산
+muFare = mean(T.Fare, 'omitnan');
+sigFare = std(T.Fare, 'omitnan');
+%% (e) 3sigma 기준으로 Fare 이상치가 아닌 행만 추출
+idxFareNormal = abs(T.Fare - muFare) <= 3 * sigFare;
+T_clean = T(idxFareNormal, :);
+%% (f) Tclean에서 Survived = 0인 승객의 평균 나이
+meanAge0 = mean(T_clean.Age(T_clean.Survived == 0));
+%% (g) Tclean에서 Survived = 1인 승객의 평균 나이
+meanAge1 = mean(T_clean.Age(T_clean.Survived == 1));
+%% (h) Survived와 평균 나이를 포함하는 table Result 생성
+Survived = [0; 1];
+MeanAge = [meanAge0; meanAge1];
+Result = table(Survived, MeanAge);
+Result
