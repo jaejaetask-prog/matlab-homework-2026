@@ -1,0 +1,25 @@
+import sys
+ 
+input = sys.stdin.readline
+ 
+t = int(input())
+ 
+for _ in range(t):
+    n = int(input())
+    ans = []
+ 
+    p = 10  # 10^k, k = 1부터 시작
+ 
+    while p + 1 <= n:
+        divisor = p + 1  # 10^k + 1
+ 
+        if n % divisor == 0:
+            ans.append(n // divisor)
+ 
+        p *= 10
+ 
+    ans.sort()
+ 
+    print(len(ans))
+    if ans:
+        print(*ans)
