@@ -1,0 +1,43 @@
+import sys
+ 
+input = sys.stdin.readline
+ 
+t = int(input())
+ 
+for _ in range(t):
+    n, k = map(int, input().split())
+    s = input().strip()
+ 
+    # 연속된 1의 최대 길이가 k 이상이면 불가능
+    consecutive = 0
+    possible = True
+ 
+    for ch in s:
+        if ch == '1':
+            consecutive += 1
+            if consecutive >= k:
+                possible = False
+        else:
+            consecutive = 0
+ 
+    if not possible:
+        print("NO")
+        continue
+ 
+    ans = [0] * n
+ 
+    # 1인 위치에는 작은 수 배치
+    cur = 1
+    for i in range(n):
+        if s[i] == '1':
+            ans[i] = cur
+            cur += 1
+ 
+    # 0인 위치에는 큰 수 배치
+    for i in range(n):
+        if s[i] == '0':
+            ans[i] = cur
+            cur += 1
+ 
+    print("YES")
+    print(*ans)
