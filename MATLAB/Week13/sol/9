@@ -1,0 +1,56 @@
+clear; clc;
+
+%% 조건 설정
+n_product = 50000;
+
+p1 = 0.94;   % 1단계 통과 확률
+p2 = 0.91;   % 2단계 통과 확률
+p3 = 0.88;   % 3단계 통과 확률
+
+%% (a) 1단계 통과 여부 logical vector 생성
+pass1 = rand(n_product, 1) < p1;
+
+%% (b) 1단계를 통과한 제품에 대해서만 2단계 통과 여부 생성
+pass2 = false(n_product, 1);
+
+idx1 = find(pass1);   % 1단계 통과 제품의 위치
+pass2(idx1) = rand(length(idx1), 1) < p2;
+
+%% (c) 2단계까지 통과한 제품에 대해서만 3단계 통과 여부 생성
+pass3 = false(n_product, 1);
+
+idx2 = find(pass2);   % 2단계까지 통과한 제품의 위치
+pass3(idx2) = rand(length(idx2), 1) < p3;
+
+%% (d) 최종 합격률 계산
+final_pass = pass3;
+
+final_pass_rate = sum(final_pass) / n_product;
+
+fprintf('최종 합격률 = %.4f\n', final_pass_rate);
+fprintf('최종 합격률 = %.2f%%\n', final_pass_rate * 100);
+
+%% (e) 각 단계에서 탈락한 제품수와 최종 합격 제품수 계산
+fail_stage1 = sum(~pass1);
+fail_stage2 = sum(pass1 & ~pass2);
+fail_stage3 = sum(pass2 & ~pass3);
+final_pass_count = sum(final_pass);
+
+count_result = [fail_stage1, fail_stage2, fail_stage3, final_pass_count];
+
+%% bar graph
+figure;
+bar(count_result);
+grid on;
+
+title('Inspection Result by Stage');
+ylabel('Number of Products');
+
+xticks(1:4);
+xticklabels({'Fail Stage 1', 'Fail Stage 2', 'Fail Stage 3', 'Final Pass'});
+
+%% 결과 출력
+fprintf('1단계 탈락 제품 수 = %d개\n', fail_stage1);
+fprintf('2단계 탈락 제품 수 = %d개\n', fail_stage2);
+fprintf('3단계 탈락 제품 수 = %d개\n', fail_stage3);
+fprintf('최종 합격 제품 수 = %d개\n', final_pass_count);
