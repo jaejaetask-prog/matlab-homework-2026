@@ -1,0 +1,50 @@
+clear; clc; close all;
+
+%% 조건 설정
+n_day = 10000;        % 시뮬레이션 일수
+base_power = 500;     % 기본 전력 사용량
+
+sigma_load = 35;      % 서버 부하 변동 표준편차
+
+extra_cooling = 120;  % 냉각장치 과부하 시 추가 전력
+p_overload = 0.12;    % 냉각장치 과부하 발생 확률
+
+limit_power = 650;    % 기준 전력 사용량
+
+%% (a) 서버 부하 변동을 randn으로 생성
+server_load = sigma_load * randn(n_day, 1);
+
+%% (b) 냉각장치 과부하 여부를 rand와 logical condition으로 생성
+cooling_overload = rand(n_day, 1) < p_overload;
+
+%% (c) 하루 전력 사용량 계산
+power_usage = base_power + server_load + extra_cooling * cooling_overload;
+
+%% (d) 전력 사용량이 650을 초과하는 날의 비율 계산
+over_650 = power_usage > limit_power;
+
+over_650_ratio = sum(over_650) / n_day;
+
+fprintf('전력 사용량이 650을 초과하는 날의 비율 = %.4f\n', over_650_ratio);
+fprintf('전력 사용량이 650을 초과하는 날의 비율 = %.2f%%\n', over_650_ratio * 100);
+
+%% (e) 전체 전력 사용량 histogram
+figure;
+histogram(power_usage, 50);
+grid on;
+hold on;
+
+xline(limit_power, 'r', 'LineWidth', 2);
+
+title('Histogram of Daily Power Usage');
+xlabel('Power Usage');
+ylabel('Frequency');
+
+legend('Power Usage', '650 기준선');
+
+%% 과부하 발생일과 비발생일의 평균 전력 사용량 계산
+mean_overload = mean(power_usage(cooling_overload));
+mean_normal = mean(power_usage(~cooling_overload));
+
+fprintf('과부하 발생일 평균 전력 사용량 = %.4f\n', mean_overload);
+fprintf('과부하 비발생일 평균 전력 사용량 = %.4f\n', mean_normal);
