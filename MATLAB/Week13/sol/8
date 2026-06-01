@@ -1,0 +1,34 @@
+clear; clc;
+
+%% 조건 설정
+n_trial = 100000;                 % 침입 상황 반복 횟수
+p = [0.72, 0.81, 0.67, 0.90, 0.76]; % 각 모듈의 감지 확률
+
+%% (a) 100000 x 5 크기의 난수 행렬 생성
+R = rand(n_trial, 5);
+
+%% (b) 각 열마다 다른 감지확률 pi가 적용되도록 logical matrix 생성
+% R의 각 원소가 해당 모듈의 감지확률보다 작으면 감지 성공
+detect_matrix = R < p;
+
+%% (c) 각 실험에서 감지한 모듈 수 계산
+detect_count = sum(detect_matrix, 2);
+
+%% (d) 3개 이상 감지한 경우를 시스템 성공으로 정의하고 감지확률 계산
+system_success = detect_count >= 3;
+
+system_detect_prob = sum(system_success) / n_trial;
+
+fprintf('시스템 감지 확률 = %.4f\n', system_detect_prob);
+fprintf('시스템 감지 확률 = %.2f%%\n', system_detect_prob * 100);
+
+%% (e) 감지한 모듈 수 0,1,...,5에 대한 histogram
+figure;
+histogram(detect_count, -0.5:1:5.5);
+
+grid on;
+title('Histogram of Number of Detecting Modules');
+xlabel('Number of Detecting Modules');
+ylabel('Frequency');
+
+xticks(0:5);
