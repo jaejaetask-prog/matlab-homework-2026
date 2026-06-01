@@ -1,0 +1,62 @@
+clear; clc;
+
+%% 조건 설정
+days = 365;
+lambda = 180;
+
+mu_time = 6;
+sigma_time = 2;
+
+limit_time = 1200;
+
+%% (a) poissrnd를 이용하여 365일의 주문 수 생성
+order_count = poissrnd(lambda, days, 1);
+
+%% (b) 날짜별 총 처리시간 계산
+total_time = zeros(days, 1);
+
+for d = 1:days
+    n_order = order_count(d);
+
+    process_time = mu_time + sigma_time * randn(n_order, 1);
+
+    process_time(process_time < 0) = 0;
+
+    total_time(d) = sum(process_time);
+end
+
+%% (c) 하루 총 처리시간이 1200분을 초과하는 날의 비율
+over_limit = total_time > limit_time;
+
+over_ratio = sum(over_limit) / days;
+
+fprintf('1200분 초과 비율 = %.4f\n', over_ratio);
+fprintf('1200분 초과 비율 = %.2f%%\n', over_ratio * 100);
+
+%% (d) 하루 주문수와 하루 총 처리시간 그래프
+figure;
+
+subplot(2,1,1);
+plot(1:days, order_count, 'LineWidth', 1.2);
+grid on;
+title('Daily Number of Orders');
+xlabel('Day');
+ylabel('Number of Orders');
+
+subplot(2,1,2);
+plot(1:days, total_time, 'LineWidth', 1.2);
+grid on;
+hold on;
+yline(limit_time, 'r', 'LineWidth', 2);
+title('Daily Total Processing Time');
+xlabel('Day');
+ylabel('Total Processing Time [min]');
+legend('Total Processing Time', '1200 min limit');
+
+%% (e) 주문수와 총 처리시간 scatterplot
+figure;
+scatter(order_count, total_time, 30, 'filled');
+grid on;
+title('Relationship between Daily Orders and Total Processing Time');
+xlabel('Daily Number of Orders');
+ylabel('Daily Total Processing Time [min]');
