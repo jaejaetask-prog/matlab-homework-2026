@@ -1,0 +1,33 @@
+clear;clc
+
+%(a)
+boxN = 10000;
+prN = 20;
+weight =  100 + 4 * randn(boxN,prN);
+
+%(b)
+box_meanWeight = sum(weight,2)/prN;
+
+%(c)
+fail = (box_meanWeight < 98) | (box_meanWeight > 102);
+
+%(d)
+failRate = sum(fail)/boxN
+
+
+fprintf('불합격 상자 수 = %d개\n', sum(fail))
+fprintf('불합격률 = %.4f\n', failRate)
+fprintf('불합격률 = %.2f%%\n', failRate * 100)
+
+%(e)
+figure;
+histogram(box_meanWeight)
+grid on
+title('상자 평균무게 분포')
+xlabel('상자 평균무게 [g]')
+ylabel('상자 수')
+
+hold on
+xline(98, 'LineWidth', 2, 'Color','r')
+xline(102, 'LineWidth', 2, 'Color', 'b')
+hold off
