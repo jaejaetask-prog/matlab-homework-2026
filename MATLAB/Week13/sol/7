@@ -1,0 +1,62 @@
+clear; clc;
+
+%% 조건 설정
+n_patient = 300;       % 환자 수
+mean_arrival = 8;      % 평균 도착 간격 [분]
+
+mu_service = 10;       % 평균 진료 시간 [분]
+sigma_service = 3;     % 진료 시간 표준편차 [분]
+
+%% (a) 환자 간 도착 간격 300개 생성 후 도착 시각 계산
+inter_arrival = exprnd(mean_arrival, n_patient, 1);
+
+arrival_time = cumsum(inter_arrival);
+
+%% (b) 각 환자의 진료 시간 생성
+service_time = mu_service + sigma_service * randn(n_patient, 1);
+
+% 음수 진료 시간은 1분으로 대체
+service_time(service_time < 0) = 1;
+
+%% (c) 각 환자의 진료 시작 시각과 종료 시각 계산
+start_time = zeros(n_patient, 1);
+end_time = zeros(n_patient, 1);
+
+% 첫 번째 환자
+start_time(1) = arrival_time(1);
+end_time(1) = start_time(1) + service_time(1);
+
+% 두 번째 환자부터 300번째 환자까지
+for i = 2:n_patient
+    start_time(i) = max(arrival_time(i), end_time(i-1));
+    end_time(i) = start_time(i) + service_time(i);
+end
+
+%% (d) 각 환자의 대기시간 계산
+waiting_time = start_time - arrival_time;
+
+%% (e) 평균 대기시간, 최대 대기시간, 20분 초과 비율 출력
+mean_wait = mean(waiting_time);
+max_wait = max(waiting_time);
+
+over_20 = waiting_time > 20;
+over_20_ratio = sum(over_20) / n_patient;
+
+fprintf('평균 대기시간 = %.4f분\n', mean_wait);
+fprintf('최대 대기시간 = %.4f분\n', max_wait);
+fprintf('대기시간이 20분을 초과하는 환자의 비율 = %.4f\n', over_20_ratio);
+fprintf('대기시간이 20분을 초과하는 환자의 비율 = %.2f%%\n', over_20_ratio * 100);
+
+%% 대기시간 histogram
+figure;
+histogram(waiting_time, 30);
+grid on;
+hold on;
+
+xline(20, 'r', 'LineWidth', 2);
+
+title('Histogram of Waiting Time');
+xlabel('Waiting Time [min]');
+ylabel('Number of Patients');
+
+legend('Waiting Time', '20 min 기준선');
