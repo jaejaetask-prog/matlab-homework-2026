@@ -1,0 +1,30 @@
+clear;clc
+
+A = 1.8;
+threshold = 1.2;
+n = 100000;
+
+%(a)
+N = randn(n,1);
+
+%(b)
+S = A + N;
+
+%(c)
+sucess = S>=threshold;
+
+%(d)
+sucessRate = sum(sucess)./n;
+fprintf('감지 성공률 = %.4f\n', sucessRate)
+fprintf('감지 성공률 = %.2f%%\n', sucessRate * 100)
+
+%(e)
+figure;
+histogram(S,50);
+title('성공한 실험 개수')
+xlabel('수신 신호')
+ylabel('실험 개수')
+hold on
+grid on
+
+xline(1.2,'LineWidth',2,'Color','r')
