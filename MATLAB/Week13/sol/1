@@ -1,0 +1,38 @@
+clear;clc
+
+%(a)
+rng(13);
+Qnum = 40;
+student = 5000;
+
+%(b)
+p = 0.35 + (0.95-0.35)*rand(1,Qnum);
+disp('문항별 정답확률 p_i')
+disp(p)
+
+%(c)
+correct = rand(student, Qnum) < p;
+% true  = 정답
+% false = 오답
+
+% (d) 각 학생의 총점, 평균점수, 표준편차 계산
+score = sum(correct, 2);   % 각 학생의 총점, 5000 x 1 벡터
+
+meanScore = mean(score);   % 평균점수
+stdScore = std(score);     % 표준편차
+
+fprintf('평균 점수 = %.2f점\n', meanScore)
+fprintf('표준편차 = %.2f점\n', stdScore)
+
+% (e) 점수 histogram 및 평균점수 이상 학생 비율 계산
+figure
+histogram(score, 0:1:40)
+grid on
+title('5000명 학생의 점수 분포')
+xlabel('점수')
+ylabel('학생 수')
+
+ratioAboveMean = sum(score >= meanScore) / student;
+
+fprintf('평균점수 이상인 학생의 비율 = %.4f\n', ratioAboveMean)
+fprintf('평균점수 이상인 학생의 비율 = %.2f%%\n', ratioAboveMean * 100)
