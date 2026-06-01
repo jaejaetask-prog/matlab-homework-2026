@@ -1,0 +1,48 @@
+clear; clc;
+
+%% 조건 설정
+n_path = 5000;      % 자산 경로 개수
+n_day = 60;         % 관찰 기간
+mu = 0.0008;        % 하루 평균 수익률
+sigma = 0.015;      % 하루 수익률 표준편차
+initial_asset = 100;
+
+%% (a) 5000 x 60 크기의 일별 수익률 행렬 생성
+daily_return = mu + sigma * randn(n_path, n_day);
+
+%% (b) 각 경로에 대해 누적 자산가치 계산
+% 하루 뒤 자산 = 이전 자산 * (1 + r)
+asset_path = initial_asset * cumprod(1 + daily_return, 2);
+
+%% (c) 마지막 날 자산가치의 평균, 최솟값, 최댓값 출력
+final_asset = asset_path(:, end);
+
+mean_final = mean(final_asset);
+min_final = min(final_asset);
+max_final = max(final_asset);
+
+fprintf('마지막 날 자산가치 평균 = %.4f\n', mean_final);
+fprintf('마지막 날 자산가치 최솟값 = %.4f\n', min_final);
+fprintf('마지막 날 자산가치 최댓값 = %.4f\n', max_final);
+
+%% (d) 마지막 날 자산가치가 100보다 작을 확률 추정
+loss_event = final_asset < initial_asset;
+
+loss_prob = sum(loss_event) / n_path;
+
+fprintf('마지막 날 자산가치가 100보다 작을 확률 = %.4f\n', loss_prob);
+fprintf('확률 = %.2f%%\n', loss_prob * 100);
+
+%% (e) 임의로 선택한 30개 경로를 하나의 그래프에 표시
+idx = randperm(n_path, 30);
+
+figure;
+plot(1:n_day, asset_path(idx, :)', 'LineWidth', 1.0);
+grid on;
+
+title('Simulated Asset Paths');
+xlabel('Day');
+ylabel('Asset Value');
+
+yline(initial_asset, 'r', 'LineWidth', 2);
+legend('Asset Paths', 'Initial Asset = 100');
