@@ -1,0 +1,46 @@
+clear; clc;
+
+%% 조건 설정
+true_temp = 25;      % 실제 온도
+sigma = 0.8;         % 센서 측정 오차의 표준편차
+n_repeat = 10000;    % 반복 측정 횟수
+n_sensor = 30;       % 센서 개수
+
+%% (a) 10000 x 30 크기의 측정값 행렬 생성
+% 측정값 = 실제온도 + 측정오차
+% 측정오차 ~ N(0, 0.8^2)
+
+measurements = true_temp + sigma * randn(n_repeat, n_sensor);
+
+%% (b) 각 반복 측정에서 30개 센서의 평균값 계산
+mean_temp = mean(measurements, 2);
+
+%% (c) 평균 측정값이 24.7 이상 25.3 이하인 사건 정의
+in_range = mean_temp >= 24.7 & mean_temp <= 25.3;
+
+%% (d) 해당 사건의 확률 추정
+prob = sum(in_range) / n_repeat;
+
+fprintf('30개 센서 평균값이 24.7 이상 25.3 이하일 확률 = %.4f\n', prob);
+fprintf('확률 = %.2f%%\n', prob * 100);
+
+%% (e) 센서 1개만 사용할 때와 30개 평균을 사용할 때의 분포 비교
+
+sensor_one = measurements(:, 1);   % 센서 1개만 사용한 측정값
+
+figure;
+
+histogram(sensor_one, 50);
+hold on;
+histogram(mean_temp, 50);
+
+xline(24.7, 'r', 'LineWidth', 2);
+xline(25.3, 'r', 'LineWidth', 2);
+
+grid on;
+title('Comparison of Temperature Measurement Distributions');
+xlabel('Measured Temperature [°C]');
+ylabel('Frequency');
+
+legend('Single Sensor', 'Average of 30 Sensors', ...
+       'Lower Limit = 24.7', 'Upper Limit = 25.3');
