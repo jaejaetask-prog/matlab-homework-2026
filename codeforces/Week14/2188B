@@ -1,0 +1,40 @@
+import sys
+ 
+input = sys.stdin.readline
+ 
+t = int(input())
+ 
+for _ in range(t):
+    n = int(input())
+    s = input().strip()
+ 
+    occupied = s.count('1')
+ 
+    blocked = [False] * n
+ 
+    for i, ch in enumerate(s):
+        if ch == '1':
+            blocked[i] = True
+            if i > 0:
+                blocked[i - 1] = True
+            if i + 1 < n:
+                blocked[i + 1] = True
+ 
+    add = 0
+    i = 0
+ 
+    while i < n:
+        if blocked[i]:
+            i += 1
+            continue
+ 
+        j = i
+        while j < n and not blocked[j]:
+            j += 1
+ 
+        length = j - i
+        add += (length + 2) // 3  # ceil(length / 3)
+ 
+        i = j
+ 
+    print(occupied + add)
