@@ -1,0 +1,48 @@
+import sys
+ 
+input = sys.stdin.readline
+ 
+t = int(input())
+ 
+for _ in range(t):
+    n, k = map(int, input().split())
+    a = list(map(int, input().split()))
+    b = list(map(int, input().split()))
+ 
+    x = None
+    ok = True
+ 
+    # Determine x from known positions
+    for ai, bi in zip(a, b):
+        if bi != -1:
+            s = ai + bi
+            if x is None:
+                x = s
+            elif x != s:
+                ok = False
+                break
+ 
+    if not ok:
+        print(0)
+        continue
+ 
+    # No known positions: count all feasible x
+    if x is None:
+        L = max(a)
+        R = min(ai + k for ai in a)
+        print(max(0, R - L + 1))
+        continue
+ 
+    # x is fixed: every position must match
+    for ai, bi in zip(a, b):
+        need = x - ai
+ 
+        if not (0 <= need <= k):
+            ok = False
+            break
+ 
+        if bi != -1 and bi != need:
+            ok = False
+            break
+ 
+    print(1 if ok else 0)
