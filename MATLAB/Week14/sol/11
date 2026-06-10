@@ -1,0 +1,35 @@
+clear; clc; close all;
+
+%(a)
+t = linspace(0, 80, 12000);
+
+%(b)
+y = exp(-0.04*t).*sin(2*t) + 0.3*exp(-0.01*t).*cos(7*t);
+
+%(c)
+figure('Color', 'w');
+
+%(d)
+plot(t, y, 'b-', 'LineWidth', 1.3);
+hold on;
+
+%(e)
+yline(0, 'k--', 'LineWidth', 1.0);
+
+%(f)
+xlabel('Time');
+ylabel('Signal Amplitude');
+title('High-Resolution Damped Oscillatory Signal');
+
+%(g)
+xlim([0 80]);
+grid on;
+box on;
+
+%(h)
+ax = gca;
+ax.FontSize = 12;
+ax.LineWidth = 1.2;
+
+%(i)
+print(gcf, 'damped_signal.png', '-dpng', '-r300');
