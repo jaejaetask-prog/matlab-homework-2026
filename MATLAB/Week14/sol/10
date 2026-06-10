@@ -1,0 +1,48 @@
+clear; clc; close all;
+
+%(a)
+tObs = [0 1.2 2.8 4.5 7.0 8.1 9.7 12.0];
+cObs = [5.0 6.4 9.1 8.6 6.8 5.9 5.2 4.8];
+
+%(b)
+tq = 0:0.1:12;
+
+%(c)
+cqLinear = interp1(tObs, cObs, tq, 'linear');
+
+%(d)
+cqSpline = interp1(tObs, cObs, tq, 'spline');
+
+%(e)
+deltaC = diff(cqLinear);
+
+%(f)
+[~, idxMaxChange] = max(abs(deltaC));
+
+%(g)
+changeInterval = [tq(idxMaxChange), tq(idxMaxChange+1)];
+
+%(h)
+figure;
+plot(tObs, cObs, 'ko', 'MarkerFaceColor', 'k');
+hold on;
+plot(tq, cqLinear, 'b-', 'LineWidth', 1.5);
+plot(tq, cqSpline, 'r--', 'LineWidth', 1.5);
+
+% 변화가 가장 큰 구간의 두 끝점 표시
+plot(changeInterval, cqLinear(idxMaxChange:idxMaxChange+1), ...
+     'mp', 'MarkerSize', 12, 'MarkerFaceColor', 'm');
+
+xlabel('Time');
+ylabel('Concentration');
+title('Concentration Interpolation and Maximum Change Interval');
+legend('Observed Data', 'Linear Interpolation', 'Spline Interpolation', ...
+       'Maximum Change Interval');
+grid on;
+
+% 결과 출력
+disp('가장 변화가 큰 시간 구간:');
+disp(changeInterval);
+
+disp('해당 구간의 농도 변화량:');
+disp(deltaC(idxMaxChange));
