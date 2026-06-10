@@ -1,0 +1,23 @@
+clear;clc;
+%(a)
+rng(14);
+%(b)
+request = poissrnd(18,30,12);
+%(c)
+dailyTotal = sum(request,2);
+%(d)
+busyDay = (dailyTotal>=240);
+%(e)
+numBusyDay = sum(busyDay);
+%(f)
+hourlyMean = mean(request,1);
+%(g)
+figure;
+plot(1:30, dailyTotal, 'g');
+hold on
+plot(find(busyDay), dailyTotal(busyDay), 'o', 'MarkerFaceColor','r');
+hold off
+grid on
+xlabel('Day');
+ylabel('Total Requests');
+title('Daily Delivery Request Simulation');
