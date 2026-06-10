@@ -17,3 +17,13 @@ for i = 2:n
     finishTime(i) = startTime(i) + service(i);
 end
 %(f)
+waitingTime = startTime - arrival;
+%(g)
+meanWait = mean(waitingTime);
+maxWait = max(waitingTime);
+longWaitRatio = sum(waitingTime >= 5)./n;
+%(h)
+figure;
+histogram(waitingTime, 40, 'FaceColor','m');
+%(i)
+title('Waiting Time Distribution in a Data Center Queue')
