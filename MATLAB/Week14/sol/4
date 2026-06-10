@@ -17,3 +17,6 @@ figure;
 histogram(batterylife,50,'FaceColor','b');
 hold on
 xline([8,11],'r')
+%(h)
+figure;
+bar(gradeCounts,'facecolor','c');
