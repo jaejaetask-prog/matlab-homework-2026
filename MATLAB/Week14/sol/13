@@ -1,0 +1,34 @@
+clear; clc; close all;
+
+%(a)
+x = linspace(-8, 8, 800);
+y = linspace(-8, 8, 800);
+
+%(b)
+[X, Y] = meshgrid(x, y);
+
+%(c)
+Z = cos(2*X) .* sin(3*Y) ./ (1 + 0.1*(X.^2 + Y.^2));
+
+%(d)
+figure;
+contourf(X, Y, Z, 70, 'LineColor', 'none');
+
+%(e)
+colormap(parula);
+colorbar;
+axis equal;
+grid on;
+box on;
+
+%(f)
+xlabel('X coordinate');
+ylabel('Y coordinate');
+
+%(g)
+title('High-Resolution Filled Contour of a Damped Oscillatory Field');
+
+%(h)
+ax = gca;
+ax.FontSize = 12;
+ax.LineWidth = 1.2;
