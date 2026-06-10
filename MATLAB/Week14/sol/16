@@ -1,0 +1,73 @@
+clear; clc; close all;
+
+%(a)
+rng(3);
+
+%(b)
+t = linspace(0, 60, 6000);
+signal = sin(0.5*t) + 0.4*sin(3*t) + 0.15*randn(size(t));
+
+%(c)
+trend = movmean(signal, 200);
+
+%(d)
+x = linspace(-5, 5, 300);
+y = linspace(-5, 5, 300);
+[X, Y] = meshgrid(x, y);
+
+%(e)
+Z = exp(-0.05*(X.^2 + Y.^2)) .* cos(3*X) .* sin(2*Y);
+
+%(f)
+figure('Color', 'w');
+tiledlayout(2, 2);
+
+%(g) 첫 번째 tile: 2차원 시계열 그래프
+nexttile;
+plot(t, signal, 'LineWidth', 0.8);
+hold on;
+plot(t, trend, 'LineWidth', 2.0);
+xlabel('Time');
+ylabel('Signal');
+title('Time Series Signal and Moving Average Trend');
+legend('Original Signal', 'Moving Average Trend');
+grid on;
+box on;
+
+%(h) 두 번째 tile: 3차원 surface 그래프
+nexttile;
+surf(X, Y, Z);
+shading interp;
+colorbar;
+xlabel('X');
+ylabel('Y');
+zlabel('Z');
+title('3D Surface Plot');
+view(45, 30);
+grid on;
+box on;
+
+%(i) 세 번째 tile: filled contour 그래프
+nexttile;
+contourf(X, Y, Z, 50, 'LineColor', 'none');
+colorbar;
+xlabel('X');
+ylabel('Y');
+title('Filled Contour Plot');
+axis equal;
+grid on;
+box on;
+
+%(j) 네 번째 tile은 비워두거나 설명용으로 사용
+nexttile;
+axis off;
+text(0.1, 0.6, 'Integrated Dashboard', 'FontSize', 14, 'FontWeight', 'bold');
+text(0.1, 0.45, 'Signal + Trend');
+text(0.1, 0.35, 'Surface Plot');
+text(0.1, 0.25, 'Filled Contour');
+
+%(k)
+sgtitle('Integrated Visualization Dashboard');
+
+%(l) 저장이 필요한 경우
+print(gcf, 'visualization_dashboard.png', '-dpng', '-r300');
