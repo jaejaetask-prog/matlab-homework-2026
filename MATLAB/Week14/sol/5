@@ -1,0 +1,22 @@
+clear;clc;
+%(a)
+n = 20000;
+%(b)
+hasClaim = rand(1,n) < 0.06;
+%(c)
+claimAmount = normrnd(800, 250, 1, n);
+%(d)
+claimAmount(claimAmount < 0) = 0;
+%(e)
+claimPayment = hasClaim .* claimAmount;
+%(f)
+totalPayment = sum(claimPayment);
+meanPayment = totalPayment./n;
+meanClaimOnly = totalPayment./sum(hasClaim);
+%(g)
+numLargeClaim = sum(claimPayment >= 1200);
+%(h)
+figure;
+histogram(claimPayment);
+figure;
+histogram(claimPayment(claimPayment > 0));
