@@ -1,0 +1,39 @@
+clear; clc; close all;
+
+%(a)
+u = linspace(0, 8*pi, 500);
+v = linspace(-pi, pi, 180);
+
+%(b)
+[U, V] = meshgrid(u, v);
+
+%(c)
+X = (2 + 0.4*cos(V)) .* cos(U);
+Y = (2 + 0.4*cos(V)) .* sin(U);
+Z = 0.25*U + 0.4*sin(V);
+
+%(d)
+figure('Color', 'w');
+surf(X, Y, Z);
+
+%(e)
+shading interp;
+colormap(parula);
+colorbar;
+
+%(f)
+xlabel('X');
+ylabel('Y');
+zlabel('Z');
+
+%(g)
+title('Twisted Parametric Ribbon Surface');
+
+%(h)
+axis equal;
+axis tight;
+grid on;
+view(45, 35);
+
+%(i)
+print(gcf, 'twisted_ribbon.png', '-dpng', '-r300');
