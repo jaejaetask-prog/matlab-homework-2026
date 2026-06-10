@@ -1,0 +1,22 @@
+clear;clc;
+%(a)
+n = 100000;
+%(b)
+c1 = rand(1,n) < 0.97;
+c2 = rand(1,n) < 0.95;
+c3 = rand(1,n) < 0.96;
+c4 = rand(1,n) < 0.92;
+%(c)
+systemWorking = c1  & c2  & c3  & c4;
+%(d)
+reliabilityEst = mean(systemWorking);
+%(e)
+reliabilityTrue = 0.97 * 0.95 * 0.96 * 0.92;
+%(f)
+absError = abs(reliabilityEst - reliabilityTrue);
+%(g)
+failCounts = [sum(~c1), sum(~c2), sum(~c3), sum(~c4), sum(~systemWorking)];
+%(h)
+x = 1:5;
+bar(x,failCounts(x),'FaceColor','g');
+xticklabels({'C1', 'C2', 'C3', 'C4', 'System'});
