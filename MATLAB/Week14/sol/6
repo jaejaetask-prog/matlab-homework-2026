@@ -1,0 +1,40 @@
+clear; clc;
+
+%(a)
+n = 1000;   % 단계 수
+m = 100;    % 경로 수
+
+%(b)
+steps = 2 * (rand(n,m) < 0.56) - 1;
+% rand(n,m) < 0.56 이면 true = 1
+% 2*1 - 1 = +1  오른쪽 이동
+% 2*0 - 1 = -1  왼쪽 이동
+
+%(c)
+walks = cumsum(steps);
+
+%(d)
+figure;
+plot(1:n, walks);
+xlabel('Step');
+ylabel('Position');
+title('100 Random Walk Paths');
+grid on;
+
+%(e)
+finalPosition = walks(end, :);
+
+%(f)
+meanFinal = mean(finalPosition);
+stdFinal = std(finalPosition);
+
+%(g)
+rightDriftRatio = sum(finalPosition >= 100) / m;
+
+%(h)
+figure;
+histogram(finalPosition, 30);
+xlabel('Final Position');
+ylabel('Number of Paths');
+title('Histogram of Final Positions');
+grid on;
