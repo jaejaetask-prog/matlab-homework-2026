@@ -1,0 +1,19 @@
+clear;clc;
+%(a)
+n = 50000
+batterylife = normrnd(9.5,1.2,1,n);
+%(b)
+lowBattery = batterylife < 8;
+%(c)
+normalBattery = batterylife < 11 & batterylife >= 8;
+%(d)
+excellentBattery = batterylife >= 11;
+%(e)
+gradeCounts = sum([lowBattery; normalBattery; excellentBattery]');
+%(f)
+gradeRatio = gradeCounts/n;
+%(g)
+figure;
+histogram(batterylife,50,'FaceColor','b');
+hold on
+xline([8,11],'r')
