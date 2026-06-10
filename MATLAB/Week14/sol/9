@@ -1,0 +1,57 @@
+clear; clc; close all;
+
+%(a) 원래 격자 생성
+[X, Y] = meshgrid(1:5, 1:5);
+
+%(b) 높이 행렬 H 생성
+H = [12 14 16 15 13;
+     13 18 22 20 16;
+     15 23 31 25 18;
+     14 20 26 24 17;
+     11 15 18 16 14];
+
+%(c) 촘촘한 격자 생성
+[Xq, Yq] = meshgrid(1:0.1:5, 1:0.1:5);
+
+%(d) 선형 보간
+HqLinear = interp2(X, Y, H, Xq, Yq, 'linear');
+
+%(e) 스플라인 보간
+HqSpline = interp2(X, Y, H, Xq, Yq, 'spline');
+
+%(f), (g) tiledlayout으로 비교
+figure;
+tiledlayout(1, 3);
+
+% 원래 지형
+nexttile;
+surf(X, Y, H);
+shading interp;
+colorbar;
+xlabel('x');
+ylabel('y');
+zlabel('Height');
+title('Original Terrain');
+grid on;
+
+% 선형 보간 지형
+nexttile;
+surf(Xq, Yq, HqLinear);
+shading interp;
+colorbar;
+xlabel('x');
+ylabel('y');
+zlabel('Height');
+title('Linear Interpolation');
+grid on;
+
+% 스플라인 보간 지형
+nexttile;
+surf(Xq, Yq, HqSpline);
+shading interp;
+colorbar;
+xlabel('x');
+ylabel('y');
+zlabel('Height');
+title('Spline Interpolation');
+grid on;
