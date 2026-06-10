@@ -1,0 +1,42 @@
+clear; clc;
+
+%(a)
+timeObs = [0 3 6 9 12 15 18 21 24];
+windObs = [3.1 3.8 5.4 7.2 8.0 7.1 5.6 4.2 3.5];
+
+%(b)
+timeHourly = 0:1:24;
+
+%(c)
+windLinear = interp1(timeObs, windObs, timeHourly, 'linear');
+
+%(d)
+windSpline = interp1(timeObs, windObs, timeHourly, 'spline');
+
+%(e)
+diffWind = windSpline - windLinear;
+
+%(f)
+maxDiff = max(abs(diffWind));
+
+%(g)
+figure;
+plot(timeObs, windObs, 'ko', 'MarkerFaceColor', 'k');
+hold on;
+plot(timeHourly, windLinear, 'b-', 'LineWidth', 1.5);
+plot(timeHourly, windSpline, 'r--', 'LineWidth', 1.5);
+
+xlabel('Time (hour)');
+ylabel('Wind Speed');
+title('Linear and Spline Interpolation of Wind Speed');
+legend('Observed Data', 'Linear Interpolation', 'Spline Interpolation');
+grid on;
+
+%(h)
+figure;
+plot(timeHourly, diffWind, 'm-o', 'LineWidth', 1.5);
+
+xlabel('Time (hour)');
+ylabel('Spline - Linear');
+title('Difference between Spline and Linear Interpolation');
+grid on;
