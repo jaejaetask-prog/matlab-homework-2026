@@ -1,0 +1,46 @@
+clear; clc;
+
+%(a)
+rng(7);
+
+%(b)
+t = linspace(0, 30, 300);
+
+%(c)
+trueSignal = 2*sin(0.4*t) + 0.7*cos(1.5*t);
+
+%(d)
+obsSignal = trueSignal + 0.25*randn(size(t));
+
+%(e)
+missingIdx = randperm(length(t), 45);
+obsSignal(missingIdx) = NaN;
+
+%(f)
+valid = ~isnan(obsSignal);
+
+%(g)
+recLinear = interp1(t(valid), obsSignal(valid), t, 'linear');
+
+%(h)
+recSpline = interp1(t(valid), obsSignal(valid), t, 'spline');
+
+%(i)
+rmseLinear = sqrt(mean((trueSignal - recLinear).^2));
+rmseSpline = sqrt(mean((trueSignal - recSpline).^2));
+
+%(j)
+figure;
+plot(t, trueSignal, 'k', 'LineWidth', 1.5);
+hold on;
+plot(t, obsSignal, 'bo');
+plot(t, recLinear, 'r--', 'LineWidth', 1.2);
+plot(t, recSpline, 'g-', 'LineWidth', 1.2);
+
+xlabel('Time');
+ylabel('Signal');
+title('Signal Reconstruction using Linear and Spline Interpolation');
+legend('True Signal', 'Observed Signal with Missing Data', ...
+       'Linear Interpolation', 'Spline Interpolation');
+
+grid on;
